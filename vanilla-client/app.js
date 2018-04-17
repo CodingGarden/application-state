@@ -5,14 +5,23 @@ const watchLaterSection = document.querySelector('#watch-later');
 
 const API_URL = 'https://omdb-api.now.sh/?type=movie&s=';
 
+const state = {
+  searchTerm: '',
+  results: [],
+  watchLater: []
+};
+
+input.addEventListener('keyup', () => {
+  state.searchTerm = input.value;
+});
+
 form.addEventListener('submit', formSubmitted);
 
 async function formSubmitted(event) {
   event.preventDefault();
-  const searchTerm = input.value;
   try {
-    const results = await getResults(searchTerm);
-    showResults(results);
+    state.results = await getResults(state.searchTerm);
+    showResults();
   } catch(error) {
     showError(error);
   }
@@ -28,19 +37,32 @@ async function getResults(searchTerm) {
   return data.Search;
 }
 
-function showResults(results) {
-  resultsSection.innerHTML = results.reduce((html, movie) => {
+function showResults() {
+  resultsSection.innerHTML = state.results.reduce((html, movie) => {
     return html + getMovieTemplate(movie, 4);
   }, '');
 
+  addButtonListeners();
+}
+
+function addButtonListeners() {
   const watchLaterButtons = document.querySelectorAll('.watch-later-button');
   watchLaterButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-      const { id } = button.dataset;
-      const movie = results.find(movie => movie.imdbID === id);
-      watchLaterSection.innerHTML = watchLaterSection.innerHTML + getMovieTemplate(movie, 12, false);
-    });
+    button.addEventListener('click', buttonClicked);
   });
+}
+
+function buttonClicked(event) {
+    const { id } = event.target.dataset;
+    const movie = state.results.find(movie => movie.imdbID === id);
+    state.watchLater.push(movie);
+    updateWatchLaterSection();
+}
+
+function updateWatchLaterSection() {
+  watchLaterSection.innerHTML = state.watchLater.reduce((html, movie) => {
+    return html + getMovieTemplate(movie, 12, false);
+  }, '');
 }
 
 function getMovieTemplate(movie, cols, button = true) {
