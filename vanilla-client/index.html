@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <style>
+      .movies-area {
+        justify-content: space-around;
+        align-items: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Movie Search</a>
+      </nav>
+    </header>
+    <main class="container mt-2">
+      <form>
+        <fieldset class="form-group">
+          <label for="searchTerm">Search</label>
+          <input type="text" class="form-control" id="searchTerm" placeholder="Enter a movie title.">
+        </fieldset>
+        <button type="submit" class="btn btn-primary">GO</button>
+      </form>
+      <section class="row movies-area">
+        <section class="mt-2 col-9 row" id="results">
+        </section>
+        <section class="mt-2 col-3 row">
+          <h3>Watch Later</h3>
+          <section class="row" id="watch-later">
+          </section>
+        </section>
+      </section>
+
+    </main>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>
