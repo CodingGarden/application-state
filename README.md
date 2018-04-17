@@ -8,5 +8,5 @@ What is Application State?
   * [ ] Indicate results that are already in "watch later" list (do later...)
 * [x] What _is_ state?
 * [x] Refactor app to use single state object
-* [ ] Refactor app to use a render/view function
-* [ ] Re-write app with React or Vue.js
+* [x] Refactor app to use a render/view function
+* [ ] Re-write app with Vue.js
